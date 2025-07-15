@@ -1,5 +1,5 @@
 {
-    "id": "devcontainers-features-rocm",
+    "id": "rocm",
     "version": "0.1.0",
     "name": "ROCm",
     "description": "Installs the ROCm stack for AMD GPUs",
