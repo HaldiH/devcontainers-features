@@ -1,0 +1,16 @@
+{
+    "id": "devcontainers-features-rocm",
+    "version": "0.1.0",
+    "name": "ROCm",
+    "description": "Installs the ROCm stack for AMD GPUs",
+    "options": {
+        "rocmVersion": {
+            "type": "string",
+            "default": "6.4.1",
+            "description": "ROCm version to install"
+        }
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}
