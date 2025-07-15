@@ -30,4 +30,4 @@ echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' \
     | sudo tee /etc/apt/preferences.d/rocm-pin-600
 sudo apt-get update
 
-sudo apt install rocm
+sudo apt install -y rocm
