@@ -7,11 +7,26 @@ rm -rf /var/lib/apt/lists/*
 
 . /etc/os-release
 
-ROCM_VERSION=${ROCMVERSION}
-
 if [ "$(id -u)" -ne 0 ]; then
     echo -e 'Script must be run as root. Use sudo, su, or add "USER root" to your Dockerfile before running this script.'
     exit 1
+fi
+
+ROCM_VERSION=${ROCMVERSION}
+USERNAME="${_REMOTE_USER:-vscode}"
+RENDER_GID=$(stat -c '%g' /dev/kfd)
+
+if [ -n "$RENDER_GID" ]; then
+    echo "Detected host 'render' group with GID $RENDER_GID"
+
+    # Create a group with that GID if not present
+    if ! getent group render >/dev/null; then
+        groupadd -g "$RENDER_GID" render
+    fi
+
+    usermod -aG "$RENDER_GID" "$USERNAME"
+else
+    echo "Warning: could not detect host GID for 'render'"
 fi
 
 # Make the directory if it doesn't exist yet.
@@ -31,3 +46,14 @@ echo -e 'Package: *\nPin: release o=repo.radeon.com\nPin-Priority: 600' \
 sudo apt-get update
 
 sudo apt-get install -y rocm
+
+sudo tee --append /etc/ld.so.conf.d/rocm.conf <<EOF
+/opt/rocm/lib
+/opt/rocm/lib64
+EOF
+sudo ldconfig
+
+echo 'export PATH=$PATH:/opt/rocm/bin' >> /etc/profile.d/rocm.sh
+echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm/lib' >> /etc/profile.d/rocm.sh
+
+rm -rf /var/lib/apt/lists/*
