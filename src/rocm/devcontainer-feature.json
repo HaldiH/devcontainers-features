@@ -1,6 +1,6 @@
 {
     "id": "rocm",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "name": "ROCm",
     "description": "Installs the ROCm stack for AMD GPUs",
     "options": {
@@ -13,7 +13,6 @@
     "securityOpt": [
         "seccomp=unconfined"
     ],
-    "privileged": true,
     "installsAfter": [
         "ghcr.io/devcontainers/features/common-utils"
     ]
