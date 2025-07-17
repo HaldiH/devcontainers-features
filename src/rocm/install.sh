@@ -13,21 +13,6 @@ if [ "$(id -u)" -ne 0 ]; then
 fi
 
 ROCM_VERSION=${ROCMVERSION}
-USERNAME="${_REMOTE_USER:-vscode}"
-RENDER_GID=$(stat -c '%g' /dev/kfd)
-
-if [ -n "$RENDER_GID" ]; then
-    echo "Detected host 'render' group with GID $RENDER_GID"
-
-    # Create a group with that GID if not present
-    if ! getent group render >/dev/null; then
-        groupadd -g "$RENDER_GID" render
-    fi
-
-    usermod -aG "$RENDER_GID" "$USERNAME"
-else
-    echo "Warning: could not detect host GID for 'render'"
-fi
 
 # Make the directory if it doesn't exist yet.
 # This location is recommended by the distribution maintainers.

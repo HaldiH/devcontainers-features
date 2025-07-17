@@ -1,6 +1,6 @@
 {
     "id": "rocm",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "name": "ROCm",
     "description": "Installs the ROCm stack for AMD GPUs",
     "options": {
