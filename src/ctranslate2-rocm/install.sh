@@ -12,8 +12,6 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
-export PYTORCH_ROCM_ARCH=${PYTORCHROCMARCH:-gfx1030}
-
 apt-get update
 apt-get install -y --no-install-recommends \
     cmake \
@@ -22,7 +20,15 @@ apt-get install -y --no-install-recommends \
 
 git clone https://github.com/arlo-phoenix/CTranslate2-rocm.git --recurse-submodules
 cd CTranslate2-rocm
-CLANG_CMAKE_CXX_COMPILER=clang++ CXX=clang++ HIPCXX="$(hipconfig -l)/clang" HIP_PATH="$(hipconfig -R)"     cmake -S . -B build -DWITH_MKL=OFF -DWITH_HIP=ON -DCMAKE_HIP_ARCHITECTURES=$PYTORCH_ROCM_ARCH -DBUILD_TESTS=ON -DWITH_CUDNN=ON
+cmake -S . -B build \
+    -DWITH_MKL=OFF \
+    -DWITH_HIP=ON \
+    -DBUILD_TESTS=ON \
+    -DWITH_CUDNN=ON \
+    -DCMAKE_C_COMPILER=clang \
+    -DCMAKE_CXX_COMPILER=clang++ \
+    ${PYTORCHROCMARCH:+-DCMAKE_HIP_ARCHITECTURES=$PYTORCHROCMARCH}
+
 cmake --build build -- -j$(nproc)
 cmake --install build
 ldconfig
@@ -30,3 +36,7 @@ cd python
 pip install -r install_requirements.txt
 python setup.py bdist_wheel
 pip install dist/*.whl
+
+# Clean up
+rm -rf /var/lib/apt/lists/*
+rm -rf CTranslate2-rocm

@@ -1,6 +1,6 @@
 {
     "id": "ctranslate2-rocm",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "name": "CTranslate2 ROCm",
     "description": "Installs CTranslate2 with ROCm support for AMD GPUs",
     "dependsOn": {
