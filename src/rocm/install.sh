@@ -38,7 +38,7 @@ sudo tee --append /etc/ld.so.conf.d/rocm.conf <<EOF
 EOF
 sudo ldconfig
 
-echo 'export PATH=$PATH:/opt/rocm/bin' >> /etc/profile.d/rocm.sh
-echo 'export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/rocm/lib' >> /etc/profile.d/rocm.sh
+echo 'export PATH="/opt/rocm/bin:/opt/rocm/llvm/bin:$PATH"' >> /etc/profile.d/rocm.sh
+echo 'export LD_LIBRARY_PATH="/opt/rocm/lib:$LD_LIBRARY_PATH"' >> /etc/profile.d/rocm.sh
 
 rm -rf /var/lib/apt/lists/*
