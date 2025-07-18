@@ -1,16 +1,9 @@
 {
     "id": "ctranslate2-rocm",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "name": "CTranslate2 ROCm",
     "description": "Installs CTranslate2 with ROCm support for AMD GPUs",
     "dependsOn": {
         "ghcr.io/haldih/devcontainer-features/rocm:latest": {}
-    },
-    "options": {
-        "pytorchRocmArch": {
-            "type": "string",
-            "default": "gfx1030",
-            "description": "ROCm architecture to use for PyTorch ROCm builds"
-        }
     }
 }

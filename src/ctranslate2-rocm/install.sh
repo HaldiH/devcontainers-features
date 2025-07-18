@@ -26,8 +26,7 @@ cmake -S . -B build \
     -DBUILD_TESTS=ON \
     -DWITH_CUDNN=ON \
     -DCMAKE_C_COMPILER=clang \
-    -DCMAKE_CXX_COMPILER=clang++ \
-    ${PYTORCHROCMARCH:+-DCMAKE_HIP_ARCHITECTURES=$PYTORCHROCMARCH}
+    -DCMAKE_CXX_COMPILER=clang++
 
 cmake --build build -- -j$(nproc)
 cmake --install build
