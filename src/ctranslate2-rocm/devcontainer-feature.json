@@ -5,5 +5,12 @@
     "description": "Installs CTranslate2 with ROCm support for AMD GPUs",
     "dependsOn": {
         "ghcr.io/haldih/devcontainer-features/rocm:latest": {}
+    },
+    "options": {
+        "pytorchRocmArch": {
+            "type": "string",
+            "default": "gfx1030",
+            "description": "The ROCm architecture to use for PyTorch. Default is 'gfx1030'."
+        }
     }
 }

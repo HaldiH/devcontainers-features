@@ -12,6 +12,8 @@ if [ "$(id -u)" -ne 0 ]; then
     exit 1
 fi
 
+PYTORCH_ROCM_ARCH=${PYTORCHROCMARCH:-gfx1030}
+
 apt-get update
 apt-get install -y --no-install-recommends \
     cmake \
@@ -25,6 +27,7 @@ cmake -S . -B build \
     -DWITH_HIP=ON \
     -DBUILD_TESTS=ON \
     -DWITH_CUDNN=ON \
+    -DCMAKE_HIP_ARCHITECTURES="$PYTORCH_ROCM_ARCH" \
     -DCMAKE_C_COMPILER=clang \
     -DCMAKE_CXX_COMPILER=clang++
 
