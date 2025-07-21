@@ -11,6 +11,11 @@
             "type": "string",
             "default": "gfx1030",
             "description": "The ROCm architecture to use for PyTorch. Default is 'gfx1030'."
+        },
+        "rocmPath": {
+            "type": "string",
+            "default": "/opt/rocm",
+            "description": "The installation path of ROCm."
         }
     }
 }
