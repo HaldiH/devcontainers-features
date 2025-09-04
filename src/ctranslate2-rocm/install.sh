@@ -22,7 +22,7 @@ apt-get install -y --no-install-recommends \
     libomp-dev \
     libideep-dev
 
-git clone https://github.com/arlo-phoenix/CTranslate2-rocm.git --recurse-submodules
+git clone https://github.com/justinkb/CTranslate2-rocm.git --branch rocm-fixes --recurse-submodules
 cd CTranslate2-rocm
 cmake -S . -B build \
     -DWITH_MKL=OFF \
